@@ -51,6 +51,14 @@ public class BattleUI
 // Player, Monster를 사용해서 이 클래스를 구현하라.
 // 메소드에 abstract 키워드를 추가할 수 있다.
 
+/*
+ *  abstract vs virtual
+ *  
+ *  abstract 추상 함수 : 본문을 가질 수 없다. - 자식 클래스에서 구현을 강제한다.
+ *  virtual 가상 함수 : 본문을 가질 수 있습니다. 자식 클래스에서 이 코드를 사용을 안할 수도 있고, base키워드를 사용해서 사용할 수 있다.
+ *  
+ */
+
 public abstract class Battle : MonoBehaviour
 {
     public BattleEntity battleEntity;
