@@ -45,13 +45,17 @@ public class BattleUI
 
 }
 
-public class Battle : MonoBehaviour
+// 추상 클래스.
+// 이 클래스를 인스턴스 할 수 없다.
+// 이 클래스를 오브젝트의 컴포넌트로 사용하지 마세요.
+// Player, Monster를 사용해서 이 클래스를 구현하라.
+// 메소드에 abstract 키워드를 추가할 수 있다.
+
+public abstract class Battle : MonoBehaviour
 {
     public BattleEntity battleEntity;
     public BattleUI battleUI;
     public BattleManager battleManager;
-
-    public bool IsPlayer;
     
     public int CurrentHP {
         get {
@@ -118,24 +122,23 @@ public class Battle : MonoBehaviour
         Debug.Log($"사망했습니다. 현재 체력 : {currentHP}");
     }
 
-    public void Attack()
+    public abstract void Attack(Battle other);
+
+
+    public virtual void Recover(int amount)
     {
-
-    }
-
-    public void Recover(int amount)
-    {
-        if (IsPlayer && !battleManager.playerTurn) return;
-
         CurrentHP += amount;
     }
 
-    public void ShieldUp(int amount)
+    public virtual void ShieldUp(int amount)
     {
-        if (IsPlayer && !battleManager.playerTurn) return;
-
         battleEntity.Def += amount;
         battleUI.SetBattleUI(battleEntity);
+    }
+
+    public virtual void DamageUp(int amount)
+    {
+
     }
 
 }
