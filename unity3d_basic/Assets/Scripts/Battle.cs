@@ -111,7 +111,7 @@ public abstract class Battle : MonoBehaviour
     // 상대에게 데미지를 받는다 (TakeDamage) :: CurrentHP - (ATK 방어력에따라서 감소)
 
     // 데미지를 입었다.
-    public void TakeDamage(Battle other)
+    public virtual void TakeDamage(Battle other)
     {
         int FinalDamage = (other.battleEntity.ATK - battleEntity.Def);
         if (FinalDamage <= 0) FinalDamage = 1;
@@ -128,6 +128,11 @@ public abstract class Battle : MonoBehaviour
     {
         // 사망 이벤트 호출
         Debug.Log($"사망했습니다. 현재 체력 : {currentHP}");
+    }
+
+    public virtual void Attack()
+    {
+
     }
 
     public abstract void Attack(Battle other);

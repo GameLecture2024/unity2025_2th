@@ -10,32 +10,41 @@ using UnityEngine;
 
 
 
-public class Player : Battle
+namespace BattleExample
 {
-    public override void Attack(Battle other)
+    public class Player : Battle
     {
-        if (!battleManager.playerTurn) return;
+        [SerializeField] Animator animator;
+        public override void Attack(Battle other)
+        {
+            if (!battleManager.playerTurn) return;
 
-        other.TakeDamage(this);
+            animator.SetTrigger("Attack");
+            other.TakeDamage(this);
 
-        battleManager.TurnChange();
-    }
+            battleManager.TurnChange();
+        }
 
-    public override void Recover(int amount)
-    {
-        if (!battleManager.playerTurn) return;
+        // SetTrigger 실행할 때 애니메이션 파라미터 이름과 동일하지 않으면 에러가 발생합니다.
 
-        base.Recover(amount);
+        public override void Recover(int amount)
+        {
+            if (!battleManager.playerTurn) return;
 
-        battleManager.TurnChange();
-    }
+            base.Recover(amount);
+            animator.SetTrigger("Recover");
 
-    public override void ShieldUp(int amount)
-    {
-        if (!battleManager.playerTurn) return;
+            battleManager.TurnChange();
+        }
 
-        base.ShieldUp(amount);
+        public override void ShieldUp(int amount)
+        {
+            if (!battleManager.playerTurn) return;
 
-        battleManager.TurnChange();
-    }
+            base.ShieldUp(amount);
+            animator.SetTrigger("ShieldUp");
+
+            battleManager.TurnChange();
+        }
+    } 
 }

@@ -5,26 +5,32 @@ using UnityEngine;
 // 부모의 함수를 가져와서 사용하는 방법을 학습합니다.
 // 부모의 함수를 다시 정의한다(재정의) override
 
-public class Monster : Battle
+namespace BattleExample
 {
-    public override void Attack(Battle other)
+    public class Monster : Battle
     {
-        if (battleManager.playerTurn) return;
+        [SerializeField] Animator animator;
 
-        other.TakeDamage(this);
-    }
+        public override void Attack(Battle other)
+        {
+            if (battleManager.playerTurn) return;
 
-    public override void Recover(int amount)
-    {
-        if (battleManager.playerTurn) return;
+            //animator.SetTrigger("Attack");         // 공격 애니메이션 실행
+            other.TakeDamage(this);                // 데미지 로직 실행
+        }
 
-        base.Recover(amount);
-    }
+        public override void Recover(int amount)
+        {
+            if (battleManager.playerTurn) return;
 
-    public override void ShieldUp(int amount)
-    {
-        if (battleManager.playerTurn) return;
+            base.Recover(amount);
+        }
 
-        base.ShieldUp(amount);
-    }
+        public override void ShieldUp(int amount)
+        {
+            if (battleManager.playerTurn) return;
+
+            base.ShieldUp(amount);
+        }
+    } 
 }
