@@ -4,9 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public enum CollisionEvent
+{
+    Friendly, UnFriendly, UnDefined
+}
+
 public class NPC : MonoBehaviour
 {
-    [SerializeField] NPCInfo npcInfo;
+    [SerializeField] public NPCInfo npcInfo;
+    [SerializeField] CollisionEvent collisionEvent = CollisionEvent.UnDefined;
 
     // 클래스가 부착되어 있는 오브젝트의 다른 컴포넌트를 참조해서 사용할 수 있다.
     SpriteRenderer spriteRenderer;
@@ -143,5 +149,29 @@ public class NPC : MonoBehaviour
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireSphere(transform.position, npcInfo.patrolDistance);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            // NPC가 플레이어와 충돌했을 때 이벤트를 발생시켜라.
+          
+            if (collisionEvent == CollisionEvent.Friendly)
+            {
+                Bus<ICollisionWithPlayerEvent>.Raise(new ICollisionWithPlayerEvent(this));
+                gameObject.SetActive(false);
+                //Bus<IFriendlyCollisionEvent>.Raise();
+            }
+            else if(collisionEvent == CollisionEvent.UnFriendly)
+            {
+                //Bus<IUnFriendlyCollisionEvent>.Raise();
+            }
+            else
+            {
+                Debug.LogWarning("정의되지 않은 이벤트가 발생했습니다");
+            }
+
+        }
     }
 }

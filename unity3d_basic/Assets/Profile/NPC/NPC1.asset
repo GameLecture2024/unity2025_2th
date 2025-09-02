@@ -19,3 +19,4 @@ MonoBehaviour:
   patrolDistance: 3.93
   Sprite: {fileID: 710261730, guid: bd419c1dec567e04586493618558057c, type: 3}
   NpcName: NPC1
+  NPCDialogue: Hi! there.
