@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,14 +20,23 @@ public class Entity_stats : MonoBehaviour
     private void Awake()
     {
         StatData = (Entity_statsData)statData.Clone();
-        StatData.Vitality.AddModifier(5, "Item"); // 아이템으로 인해 체력스탯이 5가 상승했다.
+       
     }
 
-    private void Update()
+    public Stat GetStatbyType(StatType type)
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        switch (type)
         {
-            StatData.Vitality.RemoveModifier("Item");
+            case StatType.Strength: return StatData.Strength;
+            case StatType.Dexerity: return StatData.Dexerity;            
+            case StatType.Intelligence: return StatData.intelligence;            
+            case StatType.Vitality: return StatData.Vitality;         
+            case StatType.UnDefined:
+                {
+                    Debug.LogError("지정된 stattype이 존재하지 않습니다.");
+                    return null;
+                }
+            default: return null; 
         }
     }
 }

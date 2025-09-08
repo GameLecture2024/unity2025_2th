@@ -16,6 +16,7 @@ public class Stat
     public void AddModifier(float value, string source)
     {
         StatModifier modToAdd = new StatModifier(value, source);
+
         modifiers.Add(modToAdd);
     }
 
